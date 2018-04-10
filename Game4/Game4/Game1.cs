@@ -2,7 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
-namespace Game4
+namespace ShootEmUp
 {
     /// <summary>
     /// This is the main type for your game.
@@ -11,11 +11,20 @@ namespace Game4
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        
+
+        Texture2D shipTexture;
+        Rectangle shipRectangle;
+        Vector2 moveDir;
+        Vector2 Position;
+        Vector2 scale;
+        Vector2 offset;
+        float speed;
+
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+
         }
 
         /// <summary>
@@ -26,9 +35,13 @@ namespace Game4
         /// </summary>
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
-
             base.Initialize();
+            IsMouseVisible = true;
+            Position = new Vector2(100, 100);
+            moveDir = Vector2.Zero;
+            speed = 1000;
+            scale = new Vector2(1, 1);
+            offset = (shipTexture.Bounds.Size.ToVector2() / 2.0f) * scale;
         }
 
         /// <summary>
@@ -39,6 +52,8 @@ namespace Game4
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
+
+            shipTexture = Content.Load<Texture2D>("");
 
             // TODO: use this.Content to load your game content here
         }
