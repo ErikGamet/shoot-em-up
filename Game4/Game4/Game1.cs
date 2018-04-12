@@ -11,7 +11,8 @@ namespace Game4
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        
+        private int field;
+
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
