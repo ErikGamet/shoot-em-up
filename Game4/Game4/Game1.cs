@@ -2,7 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
-namespace Game4
+namespace ShootEmUp
 {
     /// <summary>
     /// This is the main type for your game.
@@ -11,11 +11,25 @@ namespace Game4
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        
+<<<<<<< HEAD
+
+        Texture2D shipTexture;
+        Rectangle shipRectangle;
+        Vector2 moveDir;
+        Vector2 position;
+        Vector2 scale;
+        Vector2 offset;
+        Color shipColor;
+        float speed;
+=======
+        private int field;
+>>>>>>> 0388d2d53782a4f2e81077a66c2dbcdc5420a2b7
+
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+
         }
 
         /// <summary>
@@ -26,9 +40,16 @@ namespace Game4
         /// </summary>
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
-
             base.Initialize();
+            IsMouseVisible = true;
+            position = new Vector2(100, 100);
+            moveDir = Vector2.Zero;
+            speed = 1000;
+            scale = new Vector2(1, 1);
+            ship
+            offset = (shipTexture.Bounds.Size.ToVector2() / 2.0f) * scale;
+            shipRectangle
+            
         }
 
         /// <summary>
@@ -39,6 +60,8 @@ namespace Game4
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
+
+            shipTexture = Content.Load<Texture2D>("SpaceShip");
 
             // TODO: use this.Content to load your game content here
         }
@@ -59,11 +82,26 @@ namespace Game4
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
-                Exit();
+            float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
+            MouseState mousestate = Mouse.GetState();
+            Vector2 mousePos = mousestate.Position.ToVector2();
+            moveDir = mousePos - position;
+            float pixelsToMove = speed * deltaTime;
+            if (moveDir != Vector2.Zero)
+            {
+                moveDir.Normalize();
 
-            // TODO: Add your update logic here
-
+                if (Vector2.Distance(position, mousePos) < pixelsToMove)
+                {
+                    position = mousePos;
+                }
+                else
+                {
+                    position += moveDir * pixelsToMove;
+                }
+                shipRectangle.Location = (position - offset).ToPoint();
+            }
+           
             base.Update(gameTime);
         }
 
@@ -76,7 +114,9 @@ namespace Game4
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             // TODO: Add your drawing code here
-
+            spriteBatch.Begin();
+            spriteBatch.Draw(shipTexture, position, null, offset, scale, SpriteEffects.None, 0);
+            spriteBatch.End();
             base.Draw(gameTime);
         }
     }
