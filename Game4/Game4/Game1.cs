@@ -11,6 +11,7 @@ namespace ShootEmUp
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+<<<<<<< HEAD
 
         Texture2D shipTexture;
         Rectangle shipRectangle;
@@ -20,6 +21,9 @@ namespace ShootEmUp
         Vector2 offset;
         Color shipColor;
         float speed;
+=======
+        private int field;
+>>>>>>> 0388d2d53782a4f2e81077a66c2dbcdc5420a2b7
 
         public Game1()
         {
