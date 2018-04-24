@@ -15,9 +15,10 @@ namespace ShootEmUp
         Texture2D shipTexture;
         Rectangle shipRectangle;
         Vector2 moveDir;
-        Vector2 Position;
+        Vector2 position;
         Vector2 scale;
         Vector2 offset;
+        Color shipColor;
         float speed;
 
         public Game1()
@@ -37,11 +38,14 @@ namespace ShootEmUp
         {
             base.Initialize();
             IsMouseVisible = true;
-            Position = new Vector2(100, 100);
+            position = new Vector2(100, 100);
             moveDir = Vector2.Zero;
             speed = 1000;
             scale = new Vector2(1, 1);
+            ship
             offset = (shipTexture.Bounds.Size.ToVector2() / 2.0f) * scale;
+            shipRectangle
+            
         }
 
         /// <summary>
@@ -53,7 +57,7 @@ namespace ShootEmUp
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            shipTexture = Content.Load<Texture2D>("");
+            shipTexture = Content.Load<Texture2D>("SpaceShip");
 
             // TODO: use this.Content to load your game content here
         }
@@ -74,11 +78,26 @@ namespace ShootEmUp
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
-                Exit();
+            float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
+            MouseState mousestate = Mouse.GetState();
+            Vector2 mousePos = mousestate.Position.ToVector2();
+            moveDir = mousePos - position;
+            float pixelsToMove = speed * deltaTime;
+            if (moveDir != Vector2.Zero)
+            {
+                moveDir.Normalize();
 
-            // TODO: Add your update logic here
-
+                if (Vector2.Distance(position, mousePos) < pixelsToMove)
+                {
+                    position = mousePos;
+                }
+                else
+                {
+                    position += moveDir * pixelsToMove;
+                }
+                shipRectangle.Location = (position - offset).ToPoint();
+            }
+           
             base.Update(gameTime);
         }
 
@@ -91,7 +110,9 @@ namespace ShootEmUp
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             // TODO: Add your drawing code here
-
+            spriteBatch.Begin();
+            spriteBatch.Draw(shipTexture, position, null, offset, scale, SpriteEffects.None, 0);
+            spriteBatch.End();
             base.Draw(gameTime);
         }
     }
