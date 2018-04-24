@@ -11,7 +11,6 @@ namespace ShootEmUp
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-<<<<<<< HEAD
 
         Texture2D shipTexture;
         Rectangle shipRectangle;
@@ -19,11 +18,8 @@ namespace ShootEmUp
         Vector2 position;
         Vector2 scale;
         Vector2 offset;
-        Color shipColor;
         float speed;
-=======
         private int field;
->>>>>>> 0388d2d53782a4f2e81077a66c2dbcdc5420a2b7
 
         public Game1()
         {
@@ -44,11 +40,11 @@ namespace ShootEmUp
             IsMouseVisible = true;
             position = new Vector2(100, 100);
             moveDir = Vector2.Zero;
-            speed = 1000;
-            scale = new Vector2(1, 1);
-            ship
+            speed = 10000000;
+            scale = new Vector2(0.25f , 0.25f);
             offset = (shipTexture.Bounds.Size.ToVector2() / 2.0f) * scale;
-            shipRectangle
+            shipRectangle = new Rectangle((position - offset).ToPoint(), (shipTexture.Bounds.Size.ToVector2() * scale).ToPoint());
+            IsMouseVisible = false;
             
         }
 
@@ -115,7 +111,7 @@ namespace ShootEmUp
 
             // TODO: Add your drawing code here
             spriteBatch.Begin();
-            spriteBatch.Draw(shipTexture, position, null, offset, scale, SpriteEffects.None, 0);
+            spriteBatch.Draw(shipTexture, position, null, Color.White, 0, offset, scale, SpriteEffects.None, 0);
             spriteBatch.End();
             base.Draw(gameTime);
         }
