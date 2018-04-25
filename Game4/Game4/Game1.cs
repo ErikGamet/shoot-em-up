@@ -21,6 +21,18 @@ namespace ShootEmUp
         float speed;
         private int field;
 
+        enum GameState
+        {
+            MainMenu,
+           // Option,
+            Playing,
+        }
+        GameState CurrentGameState = GameState.MainMenu;
+
+        int screenWidth = 800, screenHeight = 600;
+
+        cButton btnPlay;
+
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -57,6 +69,15 @@ namespace ShootEmUp
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
+
+            graphics.PreferredBackBufferWidth = screenWidth;
+            graphics.PreferredBackBufferHeight = screenHeight;
+            //graphics.IsFullScreen = true;
+            graphics.ApplyChanges();
+            IsMouseVisible = true;
+
+            btnPlay = new cButton(Content.Load<Texture2D>("startButton"), graphics.GraphicsDevice);
+            btnPlay.setPosition(new Vector2(350, 300));
             shipTexture = Content.Load<Texture2D>("SpaceShip");
 
             // TODO: use this.Content to load your game content here
@@ -78,6 +99,19 @@ namespace ShootEmUp
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
+            MouseState mouse = Mouse.GetState();
+            switch(CurrentGameState)
+            {
+                case GameState.MainMenu:
+                    if (btnPlay.isClicked == true) CurrentGameState = GameState.Playing;
+                    btnPlay.Update(mouse);
+                    break;
+
+                case GameState.Playing:
+
+                    break;
+            }
+
             float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
             MouseState mousestate = Mouse.GetState();
             Vector2 mousePos = mousestate.Position.ToVector2();
@@ -108,6 +142,19 @@ namespace ShootEmUp
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
+
+            spriteBatch.Begin();
+            switch (CurrentGameState)
+            {
+                case GameState.MainMenu:
+                    btnPlay.Draw(spriteBatch);
+                    break;
+
+                case GameState.Playing:
+
+                    break;
+            }
+            spriteBatch.End();
 
             // TODO: Add your drawing code here
             spriteBatch.Begin();
