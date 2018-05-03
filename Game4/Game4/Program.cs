@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Game4
+namespace ShootEmUp
 {
     /// <summary>
     /// The main class.

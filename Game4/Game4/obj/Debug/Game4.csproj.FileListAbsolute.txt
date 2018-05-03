@@ -17,3 +17,5 @@ C:\Users\linus.andersson13\Documents\GitHub\shoot-em-up\Game4\Game4\obj\Debug\Ga
 C:\Users\linus.andersson13\Documents\GitHub\shoot-em-up\Game4\Game4\obj\Debug\Game4.csproj.CopyComplete
 C:\Users\linus.andersson13\Documents\GitHub\shoot-em-up\Game4\Game4\obj\Debug\Game4.exe
 C:\Users\linus.andersson13\Documents\GitHub\shoot-em-up\Game4\Game4\obj\Debug\Game4.pdb
+C:\Users\linus.andersson13\Documents\GitHub\shoot-em-up\Game4\Game4\bin\DesktopGL\AnyCPU\Debug\Content\EnemyShip.xnb
+C:\Users\linus.andersson13\Documents\GitHub\shoot-em-up\Game4\Game4\bin\DesktopGL\AnyCPU\Debug\Content\SpaceShip.xnb
