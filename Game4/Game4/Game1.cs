@@ -11,10 +11,7 @@ namespace ShootEmUp
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-<<<<<<< HEAD
 
-=======
->>>>>>> 1d3dedbdff1b4bfcfe099c9f7e13e9de3bfd306a
 
         Texture2D shipTexture;
         Rectangle shipRectangle;
@@ -22,23 +19,10 @@ namespace ShootEmUp
         Vector2 position;
         Vector2 scale;
         Vector2 offset;
+        Color shipColor;
         float speed;
         private int field;
 
-<<<<<<< HEAD
-=======
-        enum GameState
-        {
-            MainMenu,
-           // Option,
-            Playing,
-        }
-        GameState currentGameState = GameState.MainMenu;
-
-        int screenWidth = 800, screenHeight = 600;
-
-        cButton btnPlay;
->>>>>>> 1d3dedbdff1b4bfcfe099c9f7e13e9de3bfd306a
 
         public Game1()
         {
@@ -59,18 +43,11 @@ namespace ShootEmUp
             IsMouseVisible = true;
             position = new Vector2(100, 100);
             moveDir = Vector2.Zero;
-<<<<<<< HEAD
             speed = 1000;
             scale = new Vector2(1, 1);
-
+             
             offset = (shipTexture.Bounds.Size.ToVector2() / 2.0f) * scale;
             
-=======
-            speed = 10000000;
-            scale = new Vector2(0.25f , 0.25f);
-            offset = (shipTexture.Bounds.Size.ToVector2() / 2.0f) * scale;
-            shipRectangle = new Rectangle((position - offset).ToPoint(), (shipTexture.Bounds.Size.ToVector2() * scale).ToPoint());         
->>>>>>> 1d3dedbdff1b4bfcfe099c9f7e13e9de3bfd306a
         }
 
         /// <summary>
@@ -82,15 +59,6 @@ namespace ShootEmUp
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-
-            graphics.PreferredBackBufferWidth = screenWidth;
-            graphics.PreferredBackBufferHeight = screenHeight;
-            //graphics.IsFullScreen = true;
-            graphics.ApplyChanges();
-            IsMouseVisible = true;
-
-            btnPlay = new cButton(Content.Load<Texture2D>("startButton"), graphics.GraphicsDevice);
-            btnPlay.setPosition(new Vector2(350, 300));
             shipTexture = Content.Load<Texture2D>("SpaceShip");
 
             // TODO: use this.Content to load your game content here
@@ -112,41 +80,26 @@ namespace ShootEmUp
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            MouseState mouse = Mouse.GetState();
-            switch(currentGameState)
+            float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
+            MouseState mousestate = Mouse.GetState();
+            Vector2 mousePos = mousestate.Position.ToVector2();
+            moveDir = mousePos - position;
+            float pixelsToMove = speed * deltaTime;
+            if (moveDir != Vector2.Zero)
             {
-                case GameState.MainMenu:
-                    if (btnPlay.isClicked == true)
-                    {
-                        IsMouseVisible = false;
-                        currentGameState = GameState.Playing;
-                    }
-                    btnPlay.Update(mouse);
-                    break;
+                moveDir.Normalize();
 
-                case GameState.Playing:
-                    float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
-                    MouseState mousestate = Mouse.GetState();
-                    Vector2 mousePos = mousestate.Position.ToVector2();
-                    moveDir = mousePos - position;
-                    float pixelsToMove = speed * deltaTime;
-                    if (moveDir != Vector2.Zero)
-                    {
-                        moveDir.Normalize();
-
-                        if (Vector2.Distance(position, mousePos) < pixelsToMove)
-                        {
-                            position = mousePos;
-                        }
-                        else
-                        {
-                            position += moveDir * pixelsToMove;
-                        }
-                        shipRectangle.Location = (position - offset).ToPoint();
-                    }
-                    break;
+                if (Vector2.Distance(position, mousePos) < pixelsToMove)
+                {
+                    position = mousePos;
+                }
+                else
+                {
+                    position += moveDir * pixelsToMove;
+                }
+                shipRectangle.Location = (position - offset).ToPoint();
             }
-
+           
             base.Update(gameTime);
         }
 
@@ -158,21 +111,9 @@ namespace ShootEmUp
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
+            // TODO: Add your drawing code here
             spriteBatch.Begin();
-<<<<<<< HEAD
             spriteBatch.Draw(shipTexture, position, null, Color.White, 0, offset, scale, SpriteEffects.None, 0);
-=======
-            switch (currentGameState)
-            {
-                case GameState.MainMenu:
-                    btnPlay.Draw(spriteBatch);
-                    break;
-
-                case GameState.Playing:
-                    spriteBatch.Draw(shipTexture, position, null, Color.White, 0, offset, scale, SpriteEffects.None, 0);
-                    break;
-            }
->>>>>>> 1d3dedbdff1b4bfcfe099c9f7e13e9de3bfd306a
             spriteBatch.End();
             base.Draw(gameTime);
         }
