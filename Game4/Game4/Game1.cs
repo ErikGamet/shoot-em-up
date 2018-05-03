@@ -27,7 +27,7 @@ namespace ShootEmUp
            // Option,
             Playing,
         }
-        GameState CurrentGameState = GameState.MainMenu;
+        GameState currentGameState = GameState.MainMenu;
 
         int screenWidth = 800, screenHeight = 600;
 
@@ -55,9 +55,7 @@ namespace ShootEmUp
             speed = 10000000;
             scale = new Vector2(0.25f , 0.25f);
             offset = (shipTexture.Bounds.Size.ToVector2() / 2.0f) * scale;
-            shipRectangle = new Rectangle((position - offset).ToPoint(), (shipTexture.Bounds.Size.ToVector2() * scale).ToPoint());
-            IsMouseVisible = false;
-            
+            shipRectangle = new Rectangle((position - offset).ToPoint(), (shipTexture.Bounds.Size.ToVector2() * scale).ToPoint());         
         }
 
         /// <summary>
@@ -100,38 +98,40 @@ namespace ShootEmUp
         protected override void Update(GameTime gameTime)
         {
             MouseState mouse = Mouse.GetState();
-            switch(CurrentGameState)
+            switch(currentGameState)
             {
                 case GameState.MainMenu:
-                    if (btnPlay.isClicked == true) CurrentGameState = GameState.Playing;
+                    if (btnPlay.isClicked == true)
+                    {
+                        IsMouseVisible = false;
+                        currentGameState = GameState.Playing;
+                    }
                     btnPlay.Update(mouse);
                     break;
 
                 case GameState.Playing:
+                    float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
+                    MouseState mousestate = Mouse.GetState();
+                    Vector2 mousePos = mousestate.Position.ToVector2();
+                    moveDir = mousePos - position;
+                    float pixelsToMove = speed * deltaTime;
+                    if (moveDir != Vector2.Zero)
+                    {
+                        moveDir.Normalize();
 
+                        if (Vector2.Distance(position, mousePos) < pixelsToMove)
+                        {
+                            position = mousePos;
+                        }
+                        else
+                        {
+                            position += moveDir * pixelsToMove;
+                        }
+                        shipRectangle.Location = (position - offset).ToPoint();
+                    }
                     break;
             }
 
-            float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
-            MouseState mousestate = Mouse.GetState();
-            Vector2 mousePos = mousestate.Position.ToVector2();
-            moveDir = mousePos - position;
-            float pixelsToMove = speed * deltaTime;
-            if (moveDir != Vector2.Zero)
-            {
-                moveDir.Normalize();
-
-                if (Vector2.Distance(position, mousePos) < pixelsToMove)
-                {
-                    position = mousePos;
-                }
-                else
-                {
-                    position += moveDir * pixelsToMove;
-                }
-                shipRectangle.Location = (position - offset).ToPoint();
-            }
-           
             base.Update(gameTime);
         }
 
@@ -144,21 +144,16 @@ namespace ShootEmUp
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             spriteBatch.Begin();
-            switch (CurrentGameState)
+            switch (currentGameState)
             {
                 case GameState.MainMenu:
                     btnPlay.Draw(spriteBatch);
                     break;
 
                 case GameState.Playing:
-
+                    spriteBatch.Draw(shipTexture, position, null, Color.White, 0, offset, scale, SpriteEffects.None, 0);
                     break;
             }
-            spriteBatch.End();
-
-            // TODO: Add your drawing code here
-            spriteBatch.Begin();
-            spriteBatch.Draw(shipTexture, position, null, Color.White, 0, offset, scale, SpriteEffects.None, 0);
             spriteBatch.End();
             base.Draw(gameTime);
         }

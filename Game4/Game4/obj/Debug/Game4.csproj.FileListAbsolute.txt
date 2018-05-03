@@ -19,3 +19,4 @@ C:\Users\erik.gustavsson2\Documents\git hub\monogame project\monogame second try
 C:\Users\erik.gustavsson2\Documents\git hub\monogame project\monogame second try\shoot-em-up\Game4\Game4\obj\Debug\Game4.csproj.CopyComplete
 C:\Users\erik.gustavsson2\Documents\git hub\monogame project\monogame second try\shoot-em-up\Game4\Game4\obj\Debug\Game4.exe
 C:\Users\erik.gustavsson2\Documents\git hub\monogame project\monogame second try\shoot-em-up\Game4\Game4\obj\Debug\Game4.pdb
+C:\Users\erik.gustavsson2\Documents\git hub\monogame project\monogame second try\shoot-em-up\Game4\Game4\bin\DesktopGL\AnyCPU\Debug\Content\startButton.xnb
