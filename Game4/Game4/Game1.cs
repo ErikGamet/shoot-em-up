@@ -20,11 +20,12 @@ namespace ShootEmUp
         Vector2 offset;
         float speed;
         private int field;
+        KeyboardState prevKeyboardState;
 
         enum GameState
         {
             MainMenu,
-           // Option,
+            Pause,
             Playing,
         }
         GameState currentGameState = GameState.MainMenu;
@@ -55,7 +56,9 @@ namespace ShootEmUp
             speed = 10000000;
             scale = new Vector2(0.25f , 0.25f);
             offset = (shipTexture.Bounds.Size.ToVector2() / 2.0f) * scale;
-            shipRectangle = new Rectangle((position - offset).ToPoint(), (shipTexture.Bounds.Size.ToVector2() * scale).ToPoint());         
+            shipRectangle = new Rectangle((position - offset).ToPoint(), (shipTexture.Bounds.Size.ToVector2() * scale).ToPoint());
+            prevKeyboardState = Keyboard.GetState();
+
         }
 
         /// <summary>
@@ -74,8 +77,8 @@ namespace ShootEmUp
             graphics.ApplyChanges();
             IsMouseVisible = true;
 
-            btnPlay = new cButton(Content.Load<Texture2D>("startButton"), graphics.GraphicsDevice);
-            btnPlay.setPosition(new Vector2(350, 300));
+            btnPlay = new cButton(Content.Load<Texture2D>("playButton"), graphics.GraphicsDevice);
+            btnPlay.setPosition(new Vector2(graphics.GraphicsDevice.Viewport.Width * 0.5f, 300));
             shipTexture = Content.Load<Texture2D>("SpaceShip");
 
             // TODO: use this.Content to load your game content here
@@ -108,6 +111,9 @@ namespace ShootEmUp
                     }
                     btnPlay.Update(mouse);
                     break;
+                case GameState.Pause:
+
+                    break;
 
                 case GameState.Playing:
                     float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
@@ -129,6 +135,8 @@ namespace ShootEmUp
                         }
                         shipRectangle.Location = (position - offset).ToPoint();
                     }
+                   // if()
+
                     break;
             }
 

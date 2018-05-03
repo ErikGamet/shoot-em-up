@@ -23,7 +23,7 @@ namespace ShootEmUp
         {
             texture = newTexture;
 
-            size = new Vector2(graphics.Viewport.Width / 8, graphics.Viewport.Height / 30);
+            size = new Vector2(graphics.Viewport.Width / 3, graphics.Viewport.Height / 5);
         }
   
         bool down;
@@ -58,7 +58,7 @@ namespace ShootEmUp
         }
         public void setPosition(Vector2 newPosition)
         {
-            position = newPosition; 
+            position = newPosition - size * 0.5f; 
         }
         
         public void Draw(SpriteBatch spriteBatch)
