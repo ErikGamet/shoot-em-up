@@ -81,7 +81,7 @@ namespace ShootEmUp
             btnPlay = new cButton(Content.Load<Texture2D>("playButton"), graphics.GraphicsDevice);
             btnPlay.setPosition(new Vector2(graphics.GraphicsDevice.Viewport.Width * 0.5f, 300));
             btnExit = new cButton(Content.Load<Texture2D>("playButton"), graphics.GraphicsDevice);
-            btnExit.setPosition(new Vector2(graphics.GraphicsDevice.Viewport.Width * 0.5f, 200));
+            btnExit.setPosition(new Vector2(graphics.GraphicsDevice.Viewport.Width * 0.5f, 300));
             shipTexture = Content.Load<Texture2D>("SpaceShip");
 
             // TODO: use this.Content to load your game content here
@@ -125,11 +125,11 @@ namespace ShootEmUp
                         currentGameState = GameState.Playing;
                         IsMouseVisible = false;
                     }
-                      if (btnPlay.isClicked == true)
-                    {
-                        IsMouseVisible = false;
-                        currentGameState = GameState.Playing;
-                    }
+                     // if (btnPlay.isClicked == true)
+                  //  {
+                 //       IsMouseVisible = false;
+                  //      currentGameState = GameState.Playing;
+                    //}
                     break;
 
                 case GameState.Playing:
