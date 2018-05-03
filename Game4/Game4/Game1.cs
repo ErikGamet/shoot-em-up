@@ -33,6 +33,7 @@ namespace ShootEmUp
         int screenWidth = 800, screenHeight = 600;
 
         cButton btnPlay;
+        cButton btnExit;
 
         public Game1()
         {
@@ -79,6 +80,8 @@ namespace ShootEmUp
 
             btnPlay = new cButton(Content.Load<Texture2D>("playButton"), graphics.GraphicsDevice);
             btnPlay.setPosition(new Vector2(graphics.GraphicsDevice.Viewport.Width * 0.5f, 300));
+            btnExit = new cButton(Content.Load<Texture2D>("playButton"), graphics.GraphicsDevice);
+            btnExit.setPosition(new Vector2(graphics.GraphicsDevice.Viewport.Width * 0.5f, 200));
             shipTexture = Content.Load<Texture2D>("SpaceShip");
 
             // TODO: use this.Content to load your game content here
@@ -101,6 +104,7 @@ namespace ShootEmUp
         protected override void Update(GameTime gameTime)
         {
             MouseState mouse = Mouse.GetState();
+            KeyboardState keyboardState = Keyboard.GetState();
             switch(currentGameState)
             {
                 case GameState.MainMenu:
@@ -110,9 +114,22 @@ namespace ShootEmUp
                         currentGameState = GameState.Playing;
                     }
                     btnPlay.Update(mouse);
+                    if (btnExit.isClicked == true)
+                    {
+                        
+                    }
                     break;
                 case GameState.Pause:
-
+                    if (prevKeyboardState.IsKeyUp(Keys.Escape) && keyboardState.IsKeyDown(Keys.Escape))
+                    {
+                        currentGameState = GameState.Playing;
+                        IsMouseVisible = false;
+                    }
+                      if (btnPlay.isClicked == true)
+                    {
+                        IsMouseVisible = false;
+                        currentGameState = GameState.Playing;
+                    }
                     break;
 
                 case GameState.Playing:
@@ -135,11 +152,16 @@ namespace ShootEmUp
                         }
                         shipRectangle.Location = (position - offset).ToPoint();
                     }
-                   // if()
+                    if(prevKeyboardState.IsKeyUp(Keys.Escape)&& keyboardState.IsKeyDown(Keys.Escape))
+                    {
+                        currentGameState = GameState.Pause;
+                        IsMouseVisible = true;
+                    }
 
                     break;
             }
 
+            prevKeyboardState = keyboardState;
             base.Update(gameTime);
         }
 
@@ -156,12 +178,19 @@ namespace ShootEmUp
             {
                 case GameState.MainMenu:
                     btnPlay.Draw(spriteBatch);
+                    btnExit.Draw(spriteBatch);
+                    break;
+
+                case GameState.Pause:
+                    spriteBatch.Draw(shipTexture, position, null, Color.White, 0, offset, scale, SpriteEffects.None, 0);
+                    btnPlay.Draw(spriteBatch);
                     break;
 
                 case GameState.Playing:
                     spriteBatch.Draw(shipTexture, position, null, Color.White, 0, offset, scale, SpriteEffects.None, 0);
                     break;
             }
+
             spriteBatch.End();
             base.Draw(gameTime);
         }
