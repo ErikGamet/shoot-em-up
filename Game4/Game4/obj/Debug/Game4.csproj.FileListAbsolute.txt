@@ -21,3 +21,4 @@ C:\Users\erik.gustavsson2\Documents\git hub\monogame project\monogame second try
 C:\Users\erik.gustavsson2\Documents\git hub\monogame project\monogame second try\shoot-em-up\Game4\Game4\obj\Debug\Game4.pdb
 C:\Users\erik.gustavsson2\Documents\git hub\monogame project\monogame second try\shoot-em-up\Game4\Game4\bin\DesktopGL\AnyCPU\Debug\Content\startButton.xnb
 C:\Users\erik.gustavsson2\Documents\git hub\monogame project\monogame second try\shoot-em-up\Game4\Game4\bin\DesktopGL\AnyCPU\Debug\Content\playButton.xnb
+C:\Users\erik.gustavsson2\Documents\git hub\monogame project\monogame second try\shoot-em-up\Game4\Game4\bin\DesktopGL\AnyCPU\Debug\Content\exitButton.xnb

@@ -34,6 +34,7 @@ namespace ShootEmUp
 
         cButton btnPlay;
         cButton btnExit;
+        cButton btnResume;
 
         public Game1()
         {
@@ -79,9 +80,11 @@ namespace ShootEmUp
             IsMouseVisible = true;
 
             btnPlay = new cButton(Content.Load<Texture2D>("playButton"), graphics.GraphicsDevice);
-            btnPlay.setPosition(new Vector2(graphics.GraphicsDevice.Viewport.Width * 0.5f, 300));
-            btnExit = new cButton(Content.Load<Texture2D>("playButton"), graphics.GraphicsDevice);
+            btnPlay.setPosition(new Vector2(graphics.GraphicsDevice.Viewport.Width * 0.5f, 200));
+            btnExit = new cButton(Content.Load<Texture2D>("exitButton"), graphics.GraphicsDevice);
             btnExit.setPosition(new Vector2(graphics.GraphicsDevice.Viewport.Width * 0.5f, 300));
+            btnResume = new cButton(Content.Load<Texture2D>("playButton"), graphics.GraphicsDevice);
+            btnResume.setPosition(new Vector2(graphics.GraphicsDevice.Viewport.Width * 0.5f, 200));
             shipTexture = Content.Load<Texture2D>("SpaceShip");
 
             // TODO: use this.Content to load your game content here
@@ -114,9 +117,10 @@ namespace ShootEmUp
                         currentGameState = GameState.Playing;
                     }
                     btnPlay.Update(mouse);
+                    btnExit.Update(mouse);
                     if (btnExit.isClicked == true)
                     {
-                        
+                        Exit();
                     }
                     break;
                 case GameState.Pause:
@@ -125,11 +129,16 @@ namespace ShootEmUp
                         currentGameState = GameState.Playing;
                         IsMouseVisible = false;
                     }
-                     // if (btnPlay.isClicked == true)
-                  //  {
-                 //       IsMouseVisible = false;
-                  //      currentGameState = GameState.Playing;
-                    //}
+                    if (btnResume.isClicked == true)
+                    {
+                        IsMouseVisible = false;
+                        currentGameState = GameState.Playing;
+
+                    }
+                    if (btnExit.isClicked == true)
+                    {
+                        Exit();
+                    }
                     break;
 
                 case GameState.Playing:
@@ -156,6 +165,7 @@ namespace ShootEmUp
                     {
                         currentGameState = GameState.Pause;
                         IsMouseVisible = true;
+
                     }
 
                     break;
@@ -183,7 +193,8 @@ namespace ShootEmUp
 
                 case GameState.Pause:
                     spriteBatch.Draw(shipTexture, position, null, Color.White, 0, offset, scale, SpriteEffects.None, 0);
-                    btnPlay.Draw(spriteBatch);
+                    btnResume.Draw(spriteBatch);
+                    btnExit.Draw(spriteBatch);
                     break;
 
                 case GameState.Playing:
