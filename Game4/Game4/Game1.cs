@@ -12,16 +12,20 @@ namespace ShootEmUp
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
+
         Texture2D shipTexture;
         Rectangle shipRectangle;
         Vector2 moveDir;
         Vector2 position;
         Vector2 scale;
         Vector2 offset;
+        Color shipColor;
         float speed;
         private int field;
         KeyboardState prevKeyboardState;
 
+<<<<<<< HEAD
+=======
         enum GameState
         {
             MainMenu,
@@ -35,6 +39,7 @@ namespace ShootEmUp
         cButton btnPlay;
         cButton btnExit;
         cButton btnResume;
+>>>>>>> b4b05867e68b5ec1e151ec662fd23b3798580435
 
         public Game1()
         {
@@ -55,12 +60,17 @@ namespace ShootEmUp
             IsMouseVisible = true;
             position = new Vector2(100, 100);
             moveDir = Vector2.Zero;
-            speed = 10000000;
-            scale = new Vector2(0.25f , 0.25f);
+            speed = 1000;
+            scale = new Vector2(1, 1);
+             
             offset = (shipTexture.Bounds.Size.ToVector2() / 2.0f) * scale;
+<<<<<<< HEAD
+            
+=======
             shipRectangle = new Rectangle((position - offset).ToPoint(), (shipTexture.Bounds.Size.ToVector2() * scale).ToPoint());
             prevKeyboardState = Keyboard.GetState();
 
+>>>>>>> b4b05867e68b5ec1e151ec662fd23b3798580435
         }
 
         /// <summary>
@@ -72,6 +82,8 @@ namespace ShootEmUp
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
+<<<<<<< HEAD
+=======
 
             graphics.PreferredBackBufferWidth = screenWidth;
             graphics.PreferredBackBufferHeight = screenHeight;
@@ -85,6 +97,7 @@ namespace ShootEmUp
             btnExit.setPosition(new Vector2(graphics.GraphicsDevice.Viewport.Width * 0.5f, 300));
             btnResume = new cButton(Content.Load<Texture2D>("playButton"), graphics.GraphicsDevice);
             btnResume.setPosition(new Vector2(graphics.GraphicsDevice.Viewport.Width * 0.5f, 200));
+>>>>>>> b4b05867e68b5ec1e151ec662fd23b3798580435
             shipTexture = Content.Load<Texture2D>("SpaceShip");
 
             // TODO: use this.Content to load your game content here
@@ -106,6 +119,28 @@ namespace ShootEmUp
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
+<<<<<<< HEAD
+            float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
+            MouseState mousestate = Mouse.GetState();
+            Vector2 mousePos = mousestate.Position.ToVector2();
+            moveDir = mousePos - position;
+            float pixelsToMove = speed * deltaTime;
+            if (moveDir != Vector2.Zero)
+            {
+                moveDir.Normalize();
+
+                if (Vector2.Distance(position, mousePos) < pixelsToMove)
+                {
+                    position = mousePos;
+                }
+                else
+                {
+                    position += moveDir * pixelsToMove;
+                }
+                shipRectangle.Location = (position - offset).ToPoint();
+            }
+           
+=======
             MouseState mouse = Mouse.GetState();
             KeyboardState keyboardState = Keyboard.GetState();
             switch(currentGameState)
@@ -173,6 +208,7 @@ namespace ShootEmUp
             }
 
             prevKeyboardState = keyboardState;
+>>>>>>> b4b05867e68b5ec1e151ec662fd23b3798580435
             base.Update(gameTime);
         }
 
@@ -184,7 +220,11 @@ namespace ShootEmUp
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
+            // TODO: Add your drawing code here
             spriteBatch.Begin();
+<<<<<<< HEAD
+            spriteBatch.Draw(shipTexture, position, null, Color.White, 0, offset, scale, SpriteEffects.None, 0);
+=======
             switch (currentGameState)
             {
                 case GameState.MainMenu:
@@ -203,6 +243,7 @@ namespace ShootEmUp
                     break;
             }
 
+>>>>>>> b4b05867e68b5ec1e151ec662fd23b3798580435
             spriteBatch.End();
             base.Draw(gameTime);
         }
