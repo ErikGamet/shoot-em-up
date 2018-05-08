@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <SourceFile>C:/Users/erik.gustavsson2/Documents/git hub/monogame project/monogame second try/shoot-em-up/Game4/Game4/Content/EnemyShip.jpg</SourceFile>
-  <SourceTime>2018-04-17T12:22:48.3718374+02:00</SourceTime>
+  <SourceFile>C:/Users/erik.gustavsson2/Documents/git hub/monogame project/monogame second try/shoot-em-up/Game4/Game4/Content/EnemyShip.png</SourceFile>
+  <SourceTime>2018-05-08T15:02:40.9384562+02:00</SourceTime>
   <DestFile>C:/Users/erik.gustavsson2/Documents/git hub/monogame project/monogame second try/shoot-em-up/Game4/Game4/Content/bin/DesktopGL/EnemyShip.xnb</DestFile>
-  <DestTime>2018-05-08T13:41:09.3781812+02:00</DestTime>
+  <DestTime>2018-05-08T15:03:31.2127853+02:00</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2017-03-01T16:05:36+01:00</ImporterTime>
   <Processor>TextureProcessor</Processor>

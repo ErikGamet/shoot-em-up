@@ -5,9 +5,9 @@
   <Config />
   <SourceFiles>
     <File>C:/Users/erik.gustavsson2/Documents/git hub/monogame project/monogame second try/shoot-em-up/Game4/Game4/Content/SpaceShip.png</File>
-    <File>C:/Users/erik.gustavsson2/Documents/git hub/monogame project/monogame second try/shoot-em-up/Game4/Game4/Content/EnemyShip.jpg</File>
     <File>C:/Users/erik.gustavsson2/Documents/git hub/monogame project/monogame second try/shoot-em-up/Game4/Game4/Content/startButton.jpg</File>
     <File>C:/Users/erik.gustavsson2/Documents/git hub/monogame project/monogame second try/shoot-em-up/Game4/Game4/Content/playButton.png</File>
     <File>C:/Users/erik.gustavsson2/Documents/git hub/monogame project/monogame second try/shoot-em-up/Game4/Game4/Content/exitButton.png</File>
+    <File>C:/Users/erik.gustavsson2/Documents/git hub/monogame project/monogame second try/shoot-em-up/Game4/Game4/Content/EnemyShip.png</File>
   </SourceFiles>
 </SourceFileCollection>

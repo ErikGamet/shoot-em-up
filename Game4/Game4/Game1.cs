@@ -23,6 +23,7 @@ namespace ShootEmUp
         float speed;
         private int field;
         KeyboardState prevKeyboardState;
+        Enemy enemy;
 
         enum GameState
         {
@@ -64,6 +65,7 @@ namespace ShootEmUp
 
             shipRectangle = new Rectangle((position - offset).ToPoint(), (shipTexture.Bounds.Size.ToVector2() * scale).ToPoint());
             prevKeyboardState = Keyboard.GetState();
+            enemy = new Enemy(Content.Load<Texture2D>("EnemyShip"), new Vector2(1000, 700), 100);
 
         }
 
@@ -151,6 +153,7 @@ namespace ShootEmUp
                     break;
 
                 case GameState.Playing:
+                    enemy.Update();
                     float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
                     MouseState mousestate = Mouse.GetState();
                     Vector2 mousePos = mousestate.Position.ToVector2();
@@ -203,12 +206,14 @@ namespace ShootEmUp
 
                 case GameState.Pause:
                     spriteBatch.Draw(shipTexture, position, null, Color.White, 0, offset, scale, SpriteEffects.None, 0);
+                    enemy.Draw(spriteBatch);
                     btnResume.Draw(spriteBatch);
                     btnExit.Draw(spriteBatch);
                     break;
 
                 case GameState.Playing:
                     spriteBatch.Draw(shipTexture, position, null, Color.White, 0, offset, scale, SpriteEffects.None, 0);
+                    enemy.Draw(spriteBatch);
                     break;
             }
             spriteBatch.End();
