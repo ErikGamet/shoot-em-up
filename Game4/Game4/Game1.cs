@@ -57,7 +57,7 @@ namespace ShootEmUp
             IsMouseVisible = true;
             position = new Vector2(100, 100);
             moveDir = Vector2.Zero;
-            speed = 10000000000;
+            speed = 10000000000 ;
             scale = new Vector2(0.25f, 0.25f);
              
             offset = (shipTexture.Bounds.Size.ToVector2() / 2.0f) * scale;
