@@ -4,10 +4,16 @@
   <Platform>DesktopGL</Platform>
   <Config />
   <SourceFiles>
+<<<<<<< HEAD
+    <File>C:/Users/linus.andersson13/Documents/GitHub/shoot-em-up/Game4/Game4/Content/SpaceShip.png</File>
+    <File>C:/Users/linus.andersson13/Documents/GitHub/shoot-em-up/Game4/Game4/Content/EnemyShip.jpg</File>
+    <File>C:/Users/linus.andersson13/Documents/GitHub/shoot-em-up/Game4/Game4/Content/startButton.jpg</File>
+=======
     <File>C:/Users/erik.gustavsson2/Documents/git hub/monogame project/monogame second try/shoot-em-up/Game4/Game4/Content/SpaceShip.png</File>
     <File>C:/Users/erik.gustavsson2/Documents/git hub/monogame project/monogame second try/shoot-em-up/Game4/Game4/Content/EnemyShip.jpg</File>
     <File>C:/Users/erik.gustavsson2/Documents/git hub/monogame project/monogame second try/shoot-em-up/Game4/Game4/Content/startButton.jpg</File>
     <File>C:/Users/erik.gustavsson2/Documents/git hub/monogame project/monogame second try/shoot-em-up/Game4/Game4/Content/playButton.png</File>
     <File>C:/Users/erik.gustavsson2/Documents/git hub/monogame project/monogame second try/shoot-em-up/Game4/Game4/Content/exitButton.png</File>
+>>>>>>> b4b05867e68b5ec1e151ec662fd23b3798580435
   </SourceFiles>
 </SourceFileCollection>
