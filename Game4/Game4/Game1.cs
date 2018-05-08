@@ -22,7 +22,24 @@ namespace ShootEmUp
         Color shipColor;
         float speed;
         private int field;
+        KeyboardState prevKeyboardState;
 
+<<<<<<< HEAD
+=======
+        enum GameState
+        {
+            MainMenu,
+            Pause,
+            Playing,
+        }
+        GameState currentGameState = GameState.MainMenu;
+
+        int screenWidth = 800, screenHeight = 600;
+
+        cButton btnPlay;
+        cButton btnExit;
+        cButton btnResume;
+>>>>>>> b4b05867e68b5ec1e151ec662fd23b3798580435
 
         public Game1()
         {
@@ -47,7 +64,13 @@ namespace ShootEmUp
             scale = new Vector2(1, 1);
              
             offset = (shipTexture.Bounds.Size.ToVector2() / 2.0f) * scale;
+<<<<<<< HEAD
             
+=======
+            shipRectangle = new Rectangle((position - offset).ToPoint(), (shipTexture.Bounds.Size.ToVector2() * scale).ToPoint());
+            prevKeyboardState = Keyboard.GetState();
+
+>>>>>>> b4b05867e68b5ec1e151ec662fd23b3798580435
         }
 
         /// <summary>
@@ -59,6 +82,22 @@ namespace ShootEmUp
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
+<<<<<<< HEAD
+=======
+
+            graphics.PreferredBackBufferWidth = screenWidth;
+            graphics.PreferredBackBufferHeight = screenHeight;
+            //graphics.IsFullScreen = true;
+            graphics.ApplyChanges();
+            IsMouseVisible = true;
+
+            btnPlay = new cButton(Content.Load<Texture2D>("playButton"), graphics.GraphicsDevice);
+            btnPlay.setPosition(new Vector2(graphics.GraphicsDevice.Viewport.Width * 0.5f, 200));
+            btnExit = new cButton(Content.Load<Texture2D>("exitButton"), graphics.GraphicsDevice);
+            btnExit.setPosition(new Vector2(graphics.GraphicsDevice.Viewport.Width * 0.5f, 300));
+            btnResume = new cButton(Content.Load<Texture2D>("playButton"), graphics.GraphicsDevice);
+            btnResume.setPosition(new Vector2(graphics.GraphicsDevice.Viewport.Width * 0.5f, 200));
+>>>>>>> b4b05867e68b5ec1e151ec662fd23b3798580435
             shipTexture = Content.Load<Texture2D>("SpaceShip");
 
             // TODO: use this.Content to load your game content here
@@ -80,6 +119,7 @@ namespace ShootEmUp
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
+<<<<<<< HEAD
             float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
             MouseState mousestate = Mouse.GetState();
             Vector2 mousePos = mousestate.Position.ToVector2();
@@ -100,6 +140,74 @@ namespace ShootEmUp
                 shipRectangle.Location = (position - offset).ToPoint();
             }
            
+=======
+            MouseState mouse = Mouse.GetState();
+            KeyboardState keyboardState = Keyboard.GetState();
+            switch(currentGameState)
+            {
+                case GameState.MainMenu:
+                    if (btnPlay.isClicked == true)
+                    {
+                        IsMouseVisible = false;
+                        currentGameState = GameState.Playing;
+                    }
+                    btnPlay.Update(mouse);
+                    btnExit.Update(mouse);
+                    if (btnExit.isClicked == true)
+                    {
+                        Exit();
+                    }
+                    break;
+                case GameState.Pause:
+                    if (prevKeyboardState.IsKeyUp(Keys.Escape) && keyboardState.IsKeyDown(Keys.Escape))
+                    {
+                        currentGameState = GameState.Playing;
+                        IsMouseVisible = false;
+                    }
+                    if (btnResume.isClicked == true)
+                    {
+                        IsMouseVisible = false;
+                        currentGameState = GameState.Playing;
+
+                    }
+                    if (btnExit.isClicked == true)
+                    {
+                        Exit();
+                    }
+                    break;
+
+                case GameState.Playing:
+                    float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
+                    MouseState mousestate = Mouse.GetState();
+                    Vector2 mousePos = mousestate.Position.ToVector2();
+                    moveDir = mousePos - position;
+                    float pixelsToMove = speed * deltaTime;
+                    if (moveDir != Vector2.Zero)
+                    {
+                        moveDir.Normalize();
+
+                        if (Vector2.Distance(position, mousePos) < pixelsToMove)
+                        {
+                            position = mousePos;
+                        }
+                        else
+                        {
+                            position += moveDir * pixelsToMove;
+                        }
+                        shipRectangle.Location = (position - offset).ToPoint();
+                    }
+                    if(prevKeyboardState.IsKeyUp(Keys.Escape)&& keyboardState.IsKeyDown(Keys.Escape))
+                    {
+                        currentGameState = GameState.Pause;
+                        IsMouseVisible = true;
+
+                    }
+
+                    break;
+            }
+
+            prevKeyboardState = keyboardState;
+>>>>>>> b4b05867e68b5ec1e151ec662fd23b3798580435
             base.Update(gameTime);
         }
 
@@ -113,7 +221,28 @@ namespace ShootEmUp
 
             // TODO: Add your drawing code here
             spriteBatch.Begin();
+<<<<<<< HEAD
             spriteBatch.Draw(shipTexture, position, null, Color.White, 0, offset, scale, SpriteEffects.None, 0);
+=======
+            switch (currentGameState)
+            {
+                case GameState.MainMenu:
+                    btnPlay.Draw(spriteBatch);
+                    btnExit.Draw(spriteBatch);
+                    break;
+
+                case GameState.Pause:
+                    spriteBatch.Draw(shipTexture, position, null, Color.White, 0, offset, scale, SpriteEffects.None, 0);
+                    btnResume.Draw(spriteBatch);
+                    btnExit.Draw(spriteBatch);
+                    break;
+
+                case GameState.Playing:
+                    spriteBatch.Draw(shipTexture, position, null, Color.White, 0, offset, scale, SpriteEffects.None, 0);
+                    break;
+            }
+
+>>>>>>> b4b05867e68b5ec1e151ec662fd23b3798580435
             spriteBatch.End();
             base.Draw(gameTime);
         }
