@@ -30,7 +30,7 @@ namespace ShootEmUp
         public bool isClicked;
         public void Update(MouseState mouse)
         {
-            rectangle = new Rectangle((int)position.X, (int)position.Y, (int)size.X, (int)size.Y);
+            
 
             Rectangle mouseRectangle = new Rectangle(mouse.X, mouse.Y, 1, 1);
 
@@ -58,7 +58,9 @@ namespace ShootEmUp
         }
         public void setPosition(Vector2 newPosition)
         {
-            position = newPosition - size * 0.5f; 
+            position = newPosition - size * 0.5f;
+
+            rectangle = new Rectangle((int)position.X, (int)position.Y, (int)size.X, (int)size.Y);
         }
         
         public void Draw(SpriteBatch spriteBatch)

@@ -124,6 +124,8 @@ namespace ShootEmUp
                     }
                     break;
                 case GameState.Pause:
+                    btnResume.Update(mouse);
+                    btnExit.Update(mouse);
                     if (prevKeyboardState.IsKeyUp(Keys.Escape) && keyboardState.IsKeyDown(Keys.Escape))
                     {
                         currentGameState = GameState.Playing;
@@ -131,11 +133,10 @@ namespace ShootEmUp
                     }
                     if (btnResume.isClicked == true)
                     {
-                        IsMouseVisible = false;
                         currentGameState = GameState.Playing;
-
+                        IsMouseVisible = false;
                     }
-                    if (btnExit.isClicked == true)
+                    if  (btnExit.isClicked == true)
                     {
                         Exit();
                     }
